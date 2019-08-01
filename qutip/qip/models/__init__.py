@@ -31,3 +31,4 @@
 #    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###############################################################################
 from qutip.qip.models.circuitprocessor import CircuitProcessor
+from qutip.qip.models.strange_problem import Dummy
