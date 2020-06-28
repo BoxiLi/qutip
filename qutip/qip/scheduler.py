@@ -59,17 +59,25 @@ class Instruction():
         Union of the control and target qubits.
     """
     def __init__(self, name, targets=None, controls=None, duration=None):
-        self.name = name
-        if targets is None:
-            self.targets = []
+        if isinstance(name, Gate):
+            gate = name
+            self.name = gate.name
+            self.targets = gate.targets
+            self.controls = gate.controls
         else:
-            self.targets = sorted(targets)
-        if controls is not None:
-            self.controls = sorted(controls)
+            self.name = name
+            if targets is None:
+                self.targets = []
+            else:
+                self.targets = sorted(targets)
+            if controls is not None:
+                self.controls = sorted(controls)
+            else:
+                self.controls = []
+        if self.controls is None:
+            self.used_qubits = set(self.targets)
         else:
-            self.controls = []
-        self.used_qubits = set(self.controls + self.targets)
-        self.duration = duration
+            self.used_qubits = set(self.controls + self.targets)
 
 
 class InstructionsGraph():
