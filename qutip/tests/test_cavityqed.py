@@ -83,6 +83,24 @@ def test_numerical_evolution():
     circuit = qutip.qip.circuit.QubitCircuit(n_qubits)
     circuit.add_gate("RX", targets=[0], arg_value=np.pi/2)
     circuit.add_gate("CNOT", targets=[0], controls=[1])
+    with warnings.catch_warnings(record=True):
+        device = DispersiveCavityQED(n_qubits, g=0.1)
+    device.load_circuit(circuit)
+
+    state = qutip.rand_ket(2**n_qubits)
+    state.dims = [[2]*n_qubits, [1]*n_qubits]
+    target = gate_sequence_product([state] + circuit.propagators())
+    extra = qutip.basis(10, 0)
+    options = qutip.Options(store_final_state=True, nsteps=50_000)
+    result = device.run_state(init_state=qutip.tensor(extra, state),
+                              analytical=False,
+                              options=options)
+    assert _tol > abs(1 - qutip.metrics.fidelity(result.final_state,
+                                                 qutip.tensor(extra, target)))
+
+def test_numerical_evolution2():
+    n_qubits = 3
+    circuit = qutip.qip.circuit.QubitCircuit(n_qubits)
     circuit.add_gate("ISWAP", targets=[2, 1])
     circuit.add_gate("CNOT", targets=[0], controls=[2])
     with warnings.catch_warnings(record=True):
@@ -99,3 +117,4 @@ def test_numerical_evolution():
                               options=options)
     assert _tol > abs(1 - qutip.metrics.fidelity(result.final_state,
                                                  qutip.tensor(extra, target)))
+                                                 
