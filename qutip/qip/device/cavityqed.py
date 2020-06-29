@@ -306,7 +306,7 @@ class DispersiveCavityQED(ModelProcessor):
             [identity(2) for n in range(self.N)])
         return psi_proj.dag() * U * psi_proj
 
-    def load_circuit(self, qc):
+    def load_circuit(self, qc, parallel=False):
         """
         Decompose a :class:`qutip.QubitCircuit` in to the control
         amplitude generating the corresponding evolution.
@@ -330,6 +330,6 @@ class DispersiveCavityQED(ModelProcessor):
         compiler = CavityQEDCompiler(
             self.N, self._params,
             global_phase=0., num_ops=len(self.ctrls))
-        tlist, self.coeffs, self.global_phase = compiler.decompose(gates)
+        tlist, self.coeffs, self.global_phase = compiler.decompose(gates, parallel)
         self.set_all_tlist(tlist)
         return tlist, self.coeffs

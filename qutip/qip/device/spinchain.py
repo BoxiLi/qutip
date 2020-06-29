@@ -192,7 +192,7 @@ class SpinChain(ModelProcessor):
     def sxsy_u(self):
         return self.coeffs[2*self.N:]
 
-    def load_circuit(self, qc, setup):
+    def load_circuit(self, qc, setup, parallel=False):
         """
         Decompose a :class:`qutip.QubitCircuit` in to the control
         amplitude generating the corresponding evolution.
@@ -220,7 +220,7 @@ class SpinChain(ModelProcessor):
         compiler = SpinChainCompiler(
             self.N, self._params, setup=setup,
             global_phase=0., num_ops=len(self.ctrls))
-        tlist, self.coeffs, self.global_phase = compiler.decompose(gates)
+        tlist, self.coeffs, self.global_phase = compiler.decompose(gates, parallel)
         self.set_all_tlist(tlist)
         return tlist, self.coeffs
 
@@ -521,8 +521,8 @@ class LinearSpinChain(SpinChain):
     def sxsy_u(self):
         return self.coeffs[2*self.N: 3*self.N-1]
 
-    def load_circuit(self, qc):
-        return super(LinearSpinChain, self).load_circuit(qc, "linear")
+    def load_circuit(self, qc, parallel=False):
+        return super(LinearSpinChain, self).load_circuit(qc, "linear", parallel)
 
     def get_operators_labels(self):
         """
@@ -605,8 +605,8 @@ class CircularSpinChain(SpinChain):
     def sxsy_u(self):
         return self.coeffs[2*self.N: 3*self.N]
 
-    def load_circuit(self, qc):
-        return super(CircularSpinChain, self).load_circuit(qc, "circular")
+    def load_circuit(self, qc, parallel=False):
+        return super(CircularSpinChain, self).load_circuit(qc, "circular", parallel)
 
     def get_operators_labels(self):
         """

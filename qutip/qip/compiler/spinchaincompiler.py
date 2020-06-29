@@ -102,8 +102,8 @@ class SpinChainCompiler(GateCompiler):
             self._sxsy_ind = list(range(2*N, 3*N-1))
         self.global_phase = global_phase
 
-    def decompose(self, gates):
-        tlist, coeffs = super(SpinChainCompiler, self).decompose(gates)
+    def decompose(self, gates, parallel=False):
+        tlist, coeffs = super(SpinChainCompiler, self).decompose(gates, parallel)
         return tlist, coeffs, self.global_phase
 
     def rz_dec(self, gate):

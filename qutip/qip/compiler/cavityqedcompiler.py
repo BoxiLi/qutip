@@ -99,8 +99,8 @@ class CavityQEDCompiler(GateCompiler):
         self.Delta = self.wq - self.params["w0"]
         self.global_phase = global_phase
 
-    def decompose(self, gates):
-        tlist, coeffs = super(CavityQEDCompiler, self).decompose(gates)
+    def decompose(self, gates, parallel=False):
+        tlist, coeffs = super(CavityQEDCompiler, self).decompose(gates, parallel)
         return tlist, coeffs, self.global_phase
 
     def rz_dec(self, gate):
