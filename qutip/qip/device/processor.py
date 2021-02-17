@@ -897,6 +897,9 @@ def _pulse_interpolate(pulse, tlist):
         else:
             coeff = np.zeros(len(tlist))
         return coeff
+    coeff = pulse.coeff
+    if len(coeff) == len(pulse.tlist)-1:  # for discrete pulse
+        coeff = np.concatenate([coeff, [0]])
 
     from scipy import interpolate
     if pulse.spline_kind == "step_func":
@@ -904,6 +907,6 @@ def _pulse_interpolate(pulse, tlist):
     else:
         kind = "cubic"
     inter = interpolate.interp1d(
-        pulse.tlist, pulse.coeff, kind=kind,
+        pulse.tlist, coeff, kind=kind,
         bounds_error=False, fill_value=0.0)
     return inter(tlist)
