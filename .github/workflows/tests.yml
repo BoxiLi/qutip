@@ -41,10 +41,11 @@ jobs:
 
           # No MKL runs.  MKL is now the default for conda installations, but
           # not necessarily for pip.
-          - case-name: no MKL
+          - case-name: no MKL + qip
             os: ubuntu-latest
             python-version: 3.7
             nomkl: 1
+            qip: true
 
           # OpenMP runs.  We only really care about getting OpenMP working
           # properly on Linux at the moment.
@@ -89,6 +90,9 @@ jobs:
           fi
           python -m pip install -e .[$QUTIP_TARGET]
           python -m pip install pytest-cov coveralls
+          if ${{ matrix.qip }} == 'true'; then
+            pip install qutip-qip
+          fi
 
       - name: Package information
         run: |
