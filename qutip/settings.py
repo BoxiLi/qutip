@@ -77,6 +77,8 @@ colorblind_safe = False
 # put in the qutiprc file.  This value is here in case
 # that failts
 openmp_thresh = 10000
+# If qutip-qip is installed, use it to replace qutip.qip
+use_qutip_qip = True
 # Note that since logging depends on settings,
 # if we want to do any logging here, it must be manually
 # configured, rather than through _logging.get_logger().

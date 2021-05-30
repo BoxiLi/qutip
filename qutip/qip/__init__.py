@@ -35,3 +35,13 @@
 # simply delete the file qutip.qip.qip_deprecation.py
 # and the line bellow.
 from qutip.qip.qip_deprecation import *
+from qutip.settings import use_qutip_qip
+
+import sys
+try:
+    import qutip_qip
+    if use_qutip_qip:
+        sys.modules["qutip.qip"] = qutip_qip
+    del qutip_qip, use_qutip_qip
+except ImportError:
+    pass
