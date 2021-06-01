@@ -40,6 +40,9 @@ from qutip.qip.device.cavityqed import DispersiveCavityQED
 from qutip.qip.device.spinchain import LinearSpinChain, CircularSpinChain
 
 
+pytestmark = pytest.mark.qip
+
+
 _tol = 1e-2
 
 _x = Gate("X", targets=[0])

@@ -41,6 +41,9 @@ from qutip import tensor, rand_ket, basis, rand_dm, identity
 from qutip.qip.operations.gates import cnot, ry
 
 
+pytestmark = pytest.mark.qip
+
+
 @pytest.mark.parametrize(["filename", "error", "error_message"], [
     pytest.param("command_error.qasm", SyntaxError,
                  "QASM: post is not a valid QASM command."),

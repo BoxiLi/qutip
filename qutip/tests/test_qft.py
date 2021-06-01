@@ -30,10 +30,13 @@
 #    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###############################################################################
-
+import pytest
 from numpy.testing import assert_, assert_equal, assert_string_equal, run_module_suite
 from qutip.qip.algorithms.qft import qft, qft_steps, qft_gate_sequence
 from qutip.qip.operations.gates import gate_sequence_product
+
+
+pytestmark = pytest.mark.qip
 
 
 class TestQFT:

@@ -35,6 +35,7 @@ import os
 from numpy.testing import (assert_, run_module_suite, assert_allclose,
                            assert_equal)
 import numpy as np
+import pytest
 
 from qutip.qip.device.optpulseprocessor import OptPulseProcessor
 from qutip.qip.operations.gates import expand_operator
@@ -48,6 +49,9 @@ from qutip.solver import Options
 from qutip.qip.operations.gates import cnot, gate_sequence_product, hadamard_transform
 from qutip.random_objects import rand_ket
 from qutip.states import basis
+
+
+pytestmark = pytest.mark.qip
 
 
 class TestOptPulseProcessor:

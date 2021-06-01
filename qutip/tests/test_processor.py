@@ -35,6 +35,7 @@ import os
 from numpy.testing import (
     assert_, run_module_suite, assert_allclose, assert_equal)
 import numpy as np
+import pytest
 
 from qutip.qip.device.processor import Processor
 from qutip.states import basis
@@ -48,6 +49,9 @@ from qutip.qip.noise import (
 from qutip.qip.qubits import qubit_states
 from qutip.metrics import fidelity
 from qutip.qip.pulse import Pulse
+
+
+pytestmark = pytest.mark.qip
 
 
 class TestCircuitProcessor:

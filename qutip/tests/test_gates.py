@@ -39,6 +39,9 @@ import qutip
 from qutip.qip.operations import gates
 
 
+pytestmark = pytest.mark.qip
+
+
 def _permutation_id(permutation):
     return str(len(permutation)) + "-" + "".join(map(str, permutation))
 

@@ -41,6 +41,9 @@ from qutip.qip.circuit import QubitCircuit
 from qutip import basis, fidelity
 
 
+pytestmark = pytest.mark.qip
+
+
 def test_compiling_with_scheduler():
     """
     Here we test if the compiling with scheduler works properly.

@@ -40,6 +40,9 @@ from qutip import process_fidelity, qeye, tracedist
 from qutip.qip.circuit import Gate
 
 
+pytestmark = pytest.mark.qip
+
+
 def _circuit1():
     circuit1 = QubitCircuit(6)
     circuit1.add_gate("SNOT", 2)

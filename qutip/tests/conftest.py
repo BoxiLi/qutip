@@ -36,6 +36,7 @@ import functools
 import os
 import tempfile
 import numpy as np
+from qutip import settings
 
 
 def _add_repeats_if_marked(metafunc):
@@ -63,6 +64,22 @@ def _skip_cython_tests_if_unavailable(item):
         pytest.importorskip('Cython', minversion='0.14')
 
 
+def _skip_qip_tests_if_unavailable(item):
+    if item.get_closest_marker("qip"):
+        # if qutip-qip is installed as an external package,
+        # skip the qip related tests
+        try:
+            # qutip_qip is installed
+            import qutip_qip
+            _qutip_qip_installed = True
+            del qutip_qip
+        except ImportError:
+            _qutip_qip_installed = False
+            pass
+        if _qutip_qip_installed and settings.use_qutip_qip:
+            pytest.skip("The external package qutip-qip is used.")
+
+
 @pytest.hookimpl(trylast=True)
 def pytest_generate_tests(metafunc):
     _add_repeats_if_marked(metafunc)
@@ -70,6 +87,7 @@ def pytest_generate_tests(metafunc):
 
 def pytest_runtest_setup(item):
     _skip_cython_tests_if_unavailable(item)
+    _skip_qip_tests_if_unavailable(item)
 
 
 def _patched_build_err_msg(arrays, err_msg, header='Items are not equal:',

@@ -47,6 +47,9 @@ from qutip.qip.qasm import read_qasm
 from qutip.qip.operations.gates import gate_sequence_product
 
 
+pytestmark = pytest.mark.qip
+
+
 def _op_dist(A, B):
     return (A - B).norm()
 
