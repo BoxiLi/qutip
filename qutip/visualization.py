@@ -172,8 +172,13 @@ def _blob(x, y, w, w_max, area, cmap=None, ax=None):
     else:
         handle = plt
 
-    handle.fill(xcorners, ycorners,
-             color=cmap(int((w + w_max) * 256 / (2 * w_max))))
+    # handle.fill(xcorners, ycorners,
+    #          color=cmap(int((w + w_max) * 256 / (2 * w_max))))
+    import matplotlib.patches as patches
+
+    # Create a Rectangle patch
+    rect = patches.Rectangle((x - hs, y - hs), 2*hs, 2*hs, linewidth=2, edgecolor='w', facecolor=cmap(int((w + w_max) * 256 / (2 * w_max))), zorder=3)
+    ax.add_patch(rect)
 
 
 def _cb_labels(left_dims):
@@ -300,7 +305,8 @@ def hinton(rho, xlabels=None, ylabels=None, title=None, ax=None, cmap=None,
 
     if not (xlabels or ylabels):
         ax.axis('off')
-
+    ax.grid(True, color="w", zorder=0)
+    ax.set_axisbelow(True)
     ax.axis('equal')
     ax.set_frame_on(False)
 
@@ -311,7 +317,7 @@ def hinton(rho, xlabels=None, ylabels=None, title=None, ax=None, cmap=None,
         w_max = 1.0
 
     ax.fill(array([0, width, width, 0]), array([0, 0, height, height]),
-            color=cmap(128))
+            color=cmap(128), zorder=-1)
     for x in range(width):
         for y in range(height):
             _x = x + 1
