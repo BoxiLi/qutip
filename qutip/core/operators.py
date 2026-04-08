@@ -308,6 +308,11 @@ _SIGMAZ = 2 * jmat(0.5, 'z')
 def sigmap():
     """Creation operator for Pauli spins.
 
+    Notes
+    -----
+    Equivalent to :func:`.destroy` when acting on a qubit defined by
+    :func:`.basis`.
+
     Examples
     --------
     >>> sigmap() # doctest: +SKIP
@@ -323,6 +328,11 @@ shape = [2, 2], type = oper, isHerm = False
 
 def sigmam():
     """Annihilation operator for Pauli spins.
+
+    Notes
+    -----
+    Equivalent to :func:`.create` when acting on a qubit defined by
+    :func:`basis`.
 
     Examples
     --------
